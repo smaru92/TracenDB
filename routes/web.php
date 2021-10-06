@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [HomeController::class, 'index']);
+
+//skill
+Route::get('/skill', [SkillController::class, 'index']);
+Route::get('/skill/create', [SkillController::class, 'create']);
+Route::post('/skill', [SkillController::class, 'store']);
+Route::get('/skill/{skill}', [SkillController::class, 'show']);
+Route::get('/skill/{skill}/edit', [SkillController::class, 'edit']);
+Route::patch('/skill/{skill}', [SkillController::class, 'update']);
+Route::delete('/skill/{skill}', [SkillController::class, 'destroy']);
