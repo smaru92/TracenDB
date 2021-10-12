@@ -5,23 +5,30 @@
 @section('content')
 <h1>스킬정보</h1>
 <ul>
-    <li>
-        <a href="/skill/create"> 스킬정보 추가 </a>
-    </li>
-    <li>
-        <a href="/skill/?active=1"> Active skill </a>
-    </li>
-    <li>
-        <a href="/skill/?active=0"> Inactive skill </a>
-    </li>
+	<li>
+		<a href="/skill/create"> 스킬정보 추가 </a>
+	</li>
+	<li>
+		<a href="/skill/?active=1"> Active skill </a>
+	</li>
+	<li>
+		<a href="/skill/?active=0"> Inactive skill </a>
+	</li>
 </ul>
+@include('skill.searchForm')
 @error('name')
    <p style="color:red"> {{ $message }} </p>
 @enderror
 <table>
 	<tr>
 		<th>
-			스킬명
+			번호
+		</th>
+		<th>
+			스킬명(한)
+		</th>
+		<th>
+			스킬명(일)
 		</th>
 		<th>
 			분류
@@ -35,13 +42,19 @@
 	</tr>
 	@forelse ($skills as $skill)
 	<tr>
+        <td>
+            {{$skill->id}}
+        </td>
 		<td>
 			<a href="/skill/{{$skill->id}}">
 					<strong>
-							{{$skill->id.":".$skill->name_ko."[".$skill->name_jp."]"}}
+							{{$skill->name_ko}}
 					</strong>
 			</a>
 		</td>
+        <td>
+            {{$skill->name_jp}}
+        </td>
 		<td>
 			{{ $skill->category }}
 		</td>
@@ -49,7 +62,7 @@
 			{{ $skill->point }}
 		</td>
 		<td>
-			{{ $skill->content }}
+			{!! $skill->content !!}
 		</td>
 	</tr>
 	@empty
